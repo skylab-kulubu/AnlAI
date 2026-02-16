@@ -4,7 +4,7 @@ SkyLab Mobilab Bootcamp Hafta 3 pratik projesi. Flutter ile geliştirilmiş bir 
 
 ## Proje Hakkında
 
-AnlAI, Groq API kullanarak yapay zeka ile sohbet etmenizi sağlayan bir mobil uygulamadır. 3 günlük bootcamp sürecinde adım adım geliştirilecektir.
+AnlAI, Groq API kullanarak yapay zeka ile sohbet etmenizi sağlayan bir mobil uygulamadır. 3 günlük bootcamp Vsürecinde adım adım geliştirilecektir.
 
 ## Haftalık Plan
 

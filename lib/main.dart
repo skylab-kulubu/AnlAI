@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'screens/chat_screen.dart';
 
 // ============================================================
@@ -23,7 +25,10 @@ import 'screens/chat_screen.dart';
 //   - Yayınlama sürecinden bahsedilir
 // ============================================================
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+
   // GÜN 8 - EMİN: Firebase başlatma eklenecek
   runApp(const AnlAIApp());
 }

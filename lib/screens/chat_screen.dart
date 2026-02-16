@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../services/chat_service.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -17,7 +20,36 @@ class _ChatScreenState extends State<ChatScreen> {
 
   bool _isLoading = false;
 
-  // GÜN 7 - ERSEL: Groq API'ye mesaj gönderme fonksiyonu eklenecek
+  // ----------------------------------------------------------
+  // ADIM 2: _sendMessage fonksiyonunu buraya yaz
+  // ----------------------------------------------------------
+  Future<void> _sendMessage(String userMessage) async {
+    setState(() {
+      _messages.add({'role': 'user', 'content': userMessage});
+      _isLoading = true;
+    });
+
+    _scrollToBottom();
+
+    try {
+      final response = await ChatService.sendMessage(_messages);
+      setState(() {
+        _messages.add({'role': 'assistant', 'content': response});
+      });
+    } catch (e) {
+      setState(() {
+        _messages.add({'role': 'assistant', 'content': 'Hata: $e'});
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+        _scrollToBottom();
+      });
+    }
+  }
+
+
+
   // GÜN 8 - EMİN: Sohbeti Firestore'a kaydetme fonksiyonu eklenecek
 
   void _clearChat() {
@@ -33,17 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _messageController.clear();
     _focusNode.requestFocus();
 
-    // GÜN 7 - ERSEL: Burada API çağrısı yapılacak
-
-    setState(() {
-      _messages.add({'role': 'user', 'content': text});
-      _messages.add({
-        'role': 'assistant',
-        'content': '🚧 API henüz bağlanmadı. Gün 7\'de bağlanacak!',
-      });
-    });
-
-    _scrollToBottom();
+    _sendMessage(text);
   }
 
   void _scrollToBottom() {
